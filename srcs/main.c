@@ -26,8 +26,6 @@ int     main(int argc, char **argv)
     init_struct();
     /* TO-DO : Parsing command line argument */
     parse_clo(argc, argv);
-    show_usage();
-    show_help();
  
     return (0);
 }

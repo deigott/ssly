@@ -34,11 +34,20 @@ void    parse_clo(int len, char *clo_args[])
     if (g_ssly->args == NULL)
         show_errors("ssly: can't allocate memory\n", EX_OSERR);
     
-    (void) p;
-    (void)clo_args;
     // TO-DO: Parsing only valid options and break if any invalid_option appears
     while (i < len)
     {
+        if (clo_args[i][0] != "-" && g_ssly->args->command == NULL)
+            g_ssly->args->command = ft_strdup(clo_args);
+        else if (ft_strncmp(clo_args[i], "-p", 2) == 0)
+            g_ssly->args->options |= OPT_PRINT;
+        else if (ft_strncmp(clo_args[i], "-s", 2) == 0)
+        
+        else
+        {
+            p = concatenate_strings("ssly: Error '%s' is an invalid command\n", clo_args[i]);
+            show_errors(p, OS_USAGE);
+        }
         continue;
     }
     return ;
