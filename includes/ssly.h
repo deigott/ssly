@@ -5,6 +5,7 @@
 # include <stdlib.h>
 
 # include "ft_libft.h"
+# include "ft_md5.h"
 # include "ft_utils.h"
 # include <sysexits.h>
 
@@ -21,13 +22,14 @@ typedef struct  s_args
 	char	*command;
 	char	**files;
 	int		options;
+	char	*string;
 }               t_args;
 
 
 typedef struct  s_ssly
 {
     t_args      		*args;
-
+	t_md5_ctx			*md5_ctx;
 }               t_ssly;
 
 
