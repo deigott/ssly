@@ -1,9 +1,10 @@
 #ifndef FT_LIBFT_H
 # define FT_LIBFT_H
 
-#include <unistd.h>
-#include <stdlib.h>
+# include <unistd.h>
+# include <stdlib.h>
 
+# define BUFFER_SIZE 1
 /**
  * Libft functions decalaration
 */
@@ -14,4 +15,5 @@ char	*ft_strstr(const char *big, const char *little);
 void    ft_bzero(void *s, size_t n);
 void    ft_putstr(char **string);
 char	*ft_strdup(const char *s1);
+char    *get_next_line(int fd);
 #endif
