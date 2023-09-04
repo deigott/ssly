@@ -6,6 +6,7 @@
 
 # include "ft_libft.h"
 # include "ft_utils.h"
+# include <sysexits.h>
 
 # define OPT_HELP     (1 << 0)
 # define OPT_PRINT	  (1 << 1)
