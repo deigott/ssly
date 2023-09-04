@@ -15,6 +15,8 @@ t_args  *init_args( void )
 		return (args);
 	args->command = NULL;
 	args->options = 0;
+	args->string = NULL;
+	args->files = NULL;
 	return (args);
 }
 
@@ -77,7 +79,18 @@ void    parse_clo(int len, char *clo_args[])
 		if (ft_strncmp(clo_args[i], "-p", 2) == 0)
 			g_ssly->args->options |= OPT_PRINT;
 		else if (ft_strncmp(clo_args[i], "-s", 2) == 0)
+		{
 			g_ssly->args->options |= OPT_SUM;
+			if (g_ssly->args->string == NULL)
+				g_ssly->args->string = ft_strdup(clo_args[i + 1]);
+			else
+			{
+				free(g_ssly->args->string);
+				g_ssly->args->string = NULL;
+				g_ssly->args->string = ft_strdup(clo_args[i + 1]);
+			}
+			i++;
+		}
 		else if (ft_strncmp(clo_args[i], "-r", 2) == 0)
 			g_ssly->args->options |= OPT_REVER;
 		else if (ft_strncmp(clo_args[i], "-q", 2) == 0)
