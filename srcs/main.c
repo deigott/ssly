@@ -30,5 +30,7 @@ int     main(int argc, char **argv)
     /* TO-DO : Parsing command line argument */
     parse_clo(argc, argv);
  
-    return (0);
+    /* Handling input stream */
+    
+    return (0); 
 }

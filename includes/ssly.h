@@ -19,6 +19,7 @@
 typedef struct  s_args
 {
 	char	*command;
+	char	**files;
 	int		options;
 }               t_args;
 

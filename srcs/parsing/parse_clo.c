@@ -18,6 +18,22 @@ t_args  *init_args( void )
 	return (args);
 }
 
+void	reading_input_files(int index, int length, char *clo_args[])
+{
+	int i;
+	int files_index;
+
+	i = index;
+	files_index = 0;
+
+	if (index >= length)
+		return ;
+	g_ssly->args->files = (char **)malloc(sizeof(char *) * (length - index + 1));
+	while (i < length)
+		g_ssly->args->files[files_index++] = ft_strdup(clo_args[i++]);
+	g_ssly->args->files[files_index] = NULL;
+}
+
 void	assign_command(const char *command)
 {
 	char *p;
@@ -73,8 +89,11 @@ void    parse_clo(int len, char *clo_args[])
 			free(p);
 			p = NULL;
 		}
+		else
+			break;
 		i++;
 	}
+	reading_input_files(i, len, clo_args);
 	if (g_ssly->args->options & OPT_HELP)
 		show_errors("", EX_HELP);
 	if (!g_ssly->args->command)
