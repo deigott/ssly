@@ -23,7 +23,10 @@ void    init_struct()
 
 int     main(int argc, char **argv)
 {
+    if (argc < 2)
+        show_errors("", EX_USAGE);
     init_struct();
+
     /* TO-DO : Parsing command line argument */
     parse_clo(argc, argv);
  
