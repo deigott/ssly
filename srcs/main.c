@@ -31,6 +31,32 @@ int     main(int argc, char **argv)
     parse_clo(argc, argv);
  
     /* Handling input stream */
-    
+    if (g_ssly->args->files) {
+        printf("  files:\n");
+        for (int i = 0; g_ssly->args->files[i]; i++) {
+            printf("    %s\n", g_ssly->args->files[i]);
+        }
+    } else {
+        printf("  files: NULL\n");
+    }
+
+    printf("  options: %d\n", g_ssly->args->options);
+
+    // Check the options using the defined constants
+    if (g_ssly->args->options & OPT_HELP) {
+        printf("  OPT_HELP is set\n");
+    }
+    if (g_ssly->args->options & OPT_PRINT) {
+        printf("  OPT_PRINT is set\n");
+    }
+    if (g_ssly->args->options & OPT_REVER) {
+        printf("  OPT_REVER is set\n");
+    }
+    if (g_ssly->args->options & OPT_SUM) {
+        printf("  OPT_SUM is set: %s\n", g_ssly->args->string);
+    }
+    if (g_ssly->args->options & OPT_QUIET) {
+        printf("  OPT_QUIET is set\n");
+    }
     return (0); 
 }
