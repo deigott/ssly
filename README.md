@@ -1,6 +1,6 @@
 # ssly
 
-<img src="images/ssl.png" />
+<img src="images/ssly.jpg" />
 
 This is the showcase demonstration on what SSLy project is about.
 
