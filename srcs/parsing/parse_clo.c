@@ -8,16 +8,35 @@
  */
 t_args  *init_args( void )
 {
-    t_args *args;
+	t_args *args;
 
-    args = (t_args *) malloc(sizeof(t_args) * 1);
-    if (args == NULL)
-        return (args);
-    args->command = NULL;
-    args->options = 0;
-    return (args);
+	args = (t_args *) malloc(sizeof(t_args) * 1);
+	if (args == NULL)
+		return (args);
+	args->command = NULL;
+	args->options = 0;
+	return (args);
 }
 
+void	assign_command(const char *command)
+{
+	char *p;
+
+	p = NULL;
+	if (ft_strncmp(command, "md5", ft_strlen("md5")) == 0)
+		g_ssly->args->command = ft_strdup(command);
+	else if (ft_strncmp(command, "sha256", ft_strlen(command)) == 0)
+	    g_ssly->args->command = ft_strdup(command);
+	else if (ft_strncmp(command, "-h", 2) == 0 || ft_strncmp(command, "--help", ft_strlen(command)) == 0 || ft_strncmp(command, "help", ft_strlen(command)) == 0)
+		show_errors("", EX_HELP);
+	else
+	{
+		p = concatenate_strings("Invalid command '%s'; type \"help\" for a list.\n", command);
+		show_errors(p, EXIT_FAILURE);
+		free(p);
+		p = NULL;
+	}
+}
 /**
  * @brief Parsing command line
  * parse command line argumments 
@@ -25,30 +44,40 @@ t_args  *init_args( void )
  */
 void    parse_clo(int len, char *clo_args[])
 {
-    int i;
-    char *p;
+	int i;
+	char *p;
 
-    p = NULL;
-    i = 1;
-    g_ssly->args = init_args();
-    if (g_ssly->args == NULL)
-        show_errors("ssly: can't allocate memory\n", EX_OSERR);
-    
-    // TO-DO: Parsing only valid options and break if any invalid_option appears
-    while (i < len)
-    {
-        if (clo_args[i][0] != "-" && g_ssly->args->command == NULL)
-            g_ssly->args->command = ft_strdup(clo_args);
-        else if (ft_strncmp(clo_args[i], "-p", 2) == 0)
-            g_ssly->args->options |= OPT_PRINT;
-        else if (ft_strncmp(clo_args[i], "-s", 2) == 0)
-        
-        else
-        {
-            p = concatenate_strings("ssly: Error '%s' is an invalid command\n", clo_args[i]);
-            show_errors(p, OS_USAGE);
-        }
-        continue;
-    }
-    return ;
+	p = NULL;
+	i = 1;
+	g_ssly->args = init_args();
+	if (g_ssly->args == NULL)
+		show_errors("ssly: can't allocate memory\n", EX_OSERR);
+	assign_command(clo_args[i++]);
+	// TO-DO: Parsing only valid options and break if any invalid_option appears
+	while (i < len)
+	{
+		if (ft_strncmp(clo_args[i], "-h", 2) == 0 || ft_strncmp(clo_args[i], "--help", ft_strlen(clo_args[i])) == 0 || ft_strncmp(clo_args[i], "help", ft_strlen(clo_args[i])) == 0)
+			g_ssly->args->options |= OPT_HELP;
+		if (ft_strncmp(clo_args[i], "-p", 2) == 0)
+			g_ssly->args->options |= OPT_PRINT;
+		else if (ft_strncmp(clo_args[i], "-s", 2) == 0)
+			g_ssly->args->options |= OPT_SUM;
+		else if (ft_strncmp(clo_args[i], "-r", 2) == 0)
+			g_ssly->args->options |= OPT_REVER;
+		else if (ft_strncmp(clo_args[i], "-q", 2) == 0)
+			g_ssly->args->options |= OPT_QUIET;
+		else if (clo_args[i][0] == '-')
+		{
+			p = concatenate_strings("%s: Unknown option or message digest: %s\n%s: Use -help for summary.\n", g_ssly->args->command, &clo_args[i][1], g_ssly->args->command);
+			show_errors(p, EXIT_FAILURE);
+			free(p);
+			p = NULL;
+		}
+		i++;
+	}
+	if (g_ssly->args->options & OPT_HELP)
+		show_errors("", EX_HELP);
+	if (!g_ssly->args->command)
+		show_errors("ft_traceroute: missing host operand\n", EX_USAGE);
+	return ;
 }
