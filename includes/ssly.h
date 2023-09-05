@@ -6,6 +6,7 @@
 
 # include "ft_libft.h"
 # include "ft_md5.h"
+# include "ft_sha256.h"
 # include "ft_utils.h"
 # include <sysexits.h>
 # include <fcntl.h>
@@ -31,6 +32,7 @@ typedef struct  s_ssly
 {
     t_args      		*args;
 	t_md5_ctx			*md5_ctx;
+	t_sha256_ctx		*sha256_ctx;
 }               t_ssly;
 
 
