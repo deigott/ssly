@@ -77,6 +77,7 @@ void    md5_file(char *filename, int fd)
             store_buffer(buffer, size);
         md5_update((uint8_t *)buffer, size);
     }
+    
     md5_final();
 
     memcpy(&result, g_ssly->md5_ctx->digest, 16);
