@@ -20,17 +20,7 @@ void    init_struct()
 	return ;
 }
 
-
-int     main(int argc, char **argv)
-{
-    if (argc < 2)
-        show_errors("", EX_USAGE);
-    init_struct();
-
-    /* TO-DO : Parsing command line argument */
-    parse_clo(argc, argv);
- 
-    /* Handling input stream */
+/*
     if (g_ssly->args->files) {
         printf("  files:\n");
         for (int i = 0; g_ssly->args->files[i]; i++) {
@@ -58,5 +48,28 @@ int     main(int argc, char **argv)
     if (g_ssly->args->options & OPT_QUIET) {
         printf("  OPT_QUIET is set\n");
     }
+*/
+
+void    handle_commands()
+{
+    if (g_ssly->args->options & OPT_MD5)
+        md5();
+    else if (g_ssly->args->options & OPT_SHA2)
+        sha2();
+    return ;
+}
+
+int     main(int argc, char **argv)
+{
+    if (argc < 2)
+        show_errors("", EX_USAGE);
+    init_struct();
+
+    /* TO-DO : Parsing command line argument */
+    parse_clo(argc, argv);
+ 
+    /* Handling commands */
+    handle_commands();
+
     return (0); 
 }
