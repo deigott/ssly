@@ -61,8 +61,8 @@ void  md5_init(void)
     g_ssly->md5_ctx->buffer[1] = (uint32_t)B;
     g_ssly->md5_ctx->buffer[2] = (uint32_t)C;
     g_ssly->md5_ctx->buffer[3] = (uint32_t)D;
-
-    return ;
+    g_ssly->md5_ctx->string = NULL;
+    return ;   
 }
 
 void  md5_algo(uint32_t *input)
@@ -80,23 +80,25 @@ void  md5_algo(uint32_t *input)
     CC = g_ssly->md5_ctx->buffer[2];
     DD = g_ssly->md5_ctx->buffer[3];
     for(unsigned int i = 0; i < 64; ++i){
-        switch(i / 16){
-            case 0:
+        if (i < 16)
+        {
                 E = F(BB, CC, DD);
                 j = i;
-                break;
-            case 1:
+        }
+        else if (i < 32)
+        {
                 E = G(BB, CC, DD);
                 j = ((i * 5) + 1) % 16;
-                break;
-            case 2:
+        }
+        else if (i < 48)
+        {
                 E = H(BB, CC, DD);
                 j = ((i * 3) + 5) % 16;
-                break;
-            default:
+        }
+        else
+        {
                 E = I(BB, CC, DD);
                 j = (i * 7) % 16;
-                break;
         }
 
         temp = DD;
@@ -120,7 +122,7 @@ void  md5_update(uint8_t *buffer, size_t input_len)
 
 
     offset = g_ssly->md5_ctx->size % 64;
-    
+
     g_ssly->md5_ctx->size += (uint64_t) input_len;
     // Copy each byte in input_buffer into the next space in our context input
     for(unsigned int i = 0; i < input_len; ++i){
@@ -154,6 +156,7 @@ void  md5_final(void)
     
     offset = g_ssly->md5_ctx->size % 64;
     padding_length = offset < 56 ? 56 - offset : (56 + 64) - offset;
+
     // Fill in the padding and undo the changes to size that resulted from the update
     md5_update(PADDING, padding_length);
     g_ssly->md5_ctx->size -= (uint64_t)padding_length;
