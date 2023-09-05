@@ -8,6 +8,7 @@
 # include "ft_md5.h"
 # include "ft_utils.h"
 # include <sysexits.h>
+# include <fcntl.h>
 
 # define OPT_HELP     (1 << 0)
 # define OPT_PRINT	  (1 << 1)
@@ -38,4 +39,6 @@ extern t_ssly   *g_ssly;
 
 
 void    parse_clo(int len, char *clo_args[]);
+void    sha2();
+
 #endif
