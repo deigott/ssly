@@ -42,9 +42,15 @@ void	assign_command(const char *command)
 
 	p = NULL;
 	if (ft_strncmp(command, "md5", ft_strlen("md5")) == 0)
+	{
+		g_ssly->args->options |= OPT_MD5;
 		g_ssly->args->command = ft_strdup(command);
+	}
 	else if (ft_strncmp(command, "sha256", ft_strlen(command)) == 0)
+	{
+		g_ssly->args->options |= OPT_SHA2;
 	    g_ssly->args->command = ft_strdup(command);
+	}
 	else if (ft_strncmp(command, "-h", 2) == 0 || ft_strncmp(command, "--help", ft_strlen(command)) == 0 || ft_strncmp(command, "help", ft_strlen(command)) == 0)
 		show_errors("", EX_HELP);
 	else
@@ -81,14 +87,19 @@ void    parse_clo(int len, char *clo_args[])
 		else if (ft_strncmp(clo_args[i], "-s", 2) == 0)
 		{
 			g_ssly->args->options |= OPT_SUM;
-			if (g_ssly->args->string == NULL)
-				g_ssly->args->string = ft_strdup(clo_args[i + 1]);
-			else
+			if (clo_args[i + 1])
 			{
-				free(g_ssly->args->string);
-				g_ssly->args->string = NULL;
-				g_ssly->args->string = ft_strdup(clo_args[i + 1]);
+				if (g_ssly->args->string == NULL)
+					g_ssly->args->string = ft_strdup(clo_args[i + 1]);
+				else
+				{
+					free(g_ssly->args->string);
+					g_ssly->args->string = NULL;
+					g_ssly->args->string = ft_strdup(clo_args[i + 1]);
+				}
 			}
+			else
+				show_errors("", EX_USAGE);
 			i++;
 		}
 		else if (ft_strncmp(clo_args[i], "-r", 2) == 0)
