@@ -55,7 +55,7 @@ void    handle_commands()
     if (g_ssly->args->options & OPT_MD5)
         md5();
     else if (g_ssly->args->options & OPT_SHA2)
-        sha2();
+        sha256();
     return ;
 }
 
