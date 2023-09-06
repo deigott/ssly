@@ -66,7 +66,7 @@ void  sha256_file(char *filename, int fd) {
     size = 0;
     buffer = (char *)malloc(sizeof(char) * 1024);
     if (buffer == NULL)
-        show_errors("ssly: error can't allocate\n", EXIT_FAILURE);
+        show_errors("ft_ssl: error can't allocate\n", EXIT_FAILURE);
 
     sha256_init();
     while ((size = read(fd, buffer, 1024)) > 0)
@@ -108,7 +108,7 @@ void    sha256()
         {
             fd = open(g_ssly->args->files[i], O_RDONLY);
             if (fd < 0)
-                printf("ssly: %s: %s: No such file or directory\n", g_ssly->args->command, g_ssly->args->files[i]);
+                printf("ft_ssl: %s: %s: No such file or directory\n", g_ssly->args->command, g_ssly->args->files[i]);
             else
                 sha256_file(g_ssly->args->files[i], fd);
             i++;

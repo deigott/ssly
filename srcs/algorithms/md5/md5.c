@@ -68,7 +68,7 @@ void    md5_file(char *filename, int fd)
     size = 0;
     buffer = (char *)malloc(sizeof(char) * 1024);
     if (buffer == NULL)
-        show_errors("ssly: error can't allocate\n", EXIT_FAILURE);
+        show_errors("ft_ssl: error can't allocate\n", EXIT_FAILURE);
 
     md5_init();
     while ((size = read(fd, buffer, 1024)) > 0)
@@ -80,7 +80,7 @@ void    md5_file(char *filename, int fd)
     
     md5_final();
 
-    memcpy(&result, g_ssly->md5_ctx->digest, 16);
+    ft_memcpy(&result, g_ssly->md5_ctx->digest, 16);
     print_hash(filename, result, fd);
     free(buffer);
     buffer = NULL;
@@ -98,8 +98,7 @@ void    md5_string(char *string)
     md5_update((uint8_t *) g_ssly->args->string, ft_strlen(g_ssly->args->string));
     md5_final();
 
-    memcpy(&result, g_ssly->md5_ctx->digest, 16);
-    // printf("%s\n", (char *)result);
+    ft_memcpy(&result, g_ssly->md5_ctx->digest, 16);
     print_hash(string,result, -1);
     free(g_ssly->md5_ctx);
     g_ssly->md5_ctx = NULL;
@@ -126,7 +125,7 @@ void    md5()
         {
             fd = open(g_ssly->args->files[i], O_RDONLY);
             if (fd < 0)
-                printf("ssly: %s: %s: No such file or directory\n", g_ssly->args->command, g_ssly->args->files[i]);
+                printf("ft_ssl: %s: %s: No such file or directory\n", g_ssly->args->command, g_ssly->args->files[i]);
             else
                 md5_file(g_ssly->args->files[i], fd);
             i++;
