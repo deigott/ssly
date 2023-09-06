@@ -77,6 +77,10 @@ void  sha256_file(char *filename, int fd) {
     }
 	sha256_final();
     print_ha256_hash(filename, fd);
+    free(buffer);
+    buffer = NULL;
+    free(g_ssly->sha256_ctx);
+    g_ssly->sha256_ctx = NULL;
 }
 
 void  sha256_string(char *string)
@@ -86,6 +90,8 @@ void  sha256_string(char *string)
     sha256_final();
 
 	print_ha256_hash(string, -1);
+    free(g_ssly->sha256_ctx);
+    g_ssly->sha256_ctx = NULL;
 }
 
 void    sha256()
