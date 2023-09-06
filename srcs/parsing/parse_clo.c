@@ -75,7 +75,7 @@ void    parse_clo(int len, char *clo_args[])
 	i = 1;
 	g_ssly->args = init_args();
 	if (g_ssly->args == NULL)
-		show_errors("ssly: can't allocate memory\n", EX_OSERR);
+		show_errors("ft_ssl: can't allocate memory\n", EX_OSERR);
 	assign_command(clo_args[i++]);
 	// TO-DO: Parsing only valid options and break if any invalid_option appears
 	while (i < len)
