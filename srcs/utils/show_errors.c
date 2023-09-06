@@ -16,7 +16,9 @@ void    show_errors(char *error_string, int error_number)
 	dprintf(2, "%s", error_string);
 	// free(error_string);
 	// error_string = NULL;
-	if (error_number == EX_USAGE || error_number == EX_HELP)
+	if (error_number == EX_HELP)
 		show_help();
+	if (error_number == EX_USAGE)
+		show_usage();
 	exit(error_number);
 }
