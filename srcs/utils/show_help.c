@@ -16,7 +16,7 @@
 void    show_help()
 {
     printf("Commands:\n");
-    printf("md5\nsha256\n\n");
+    printf("md5\nsha256\nwhirlpool\n\n");
     printf("Flags:\n");
     printf("-p -q -r -s\n");
     return ;
