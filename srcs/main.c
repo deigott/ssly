@@ -15,7 +15,7 @@ void    init_struct()
 {
 	g_ssly = (t_ssly *)malloc(sizeof(t_ssly));
 	if (g_ssly == NULL)
-        show_errors("ft_ssl: can't allocate memory\n", EX_OSERR);
+        show_errors("ssly: can't allocate memory\n", EX_OSERR);
     g_ssly->args = NULL;
 	return ;
 }
