@@ -57,7 +57,7 @@ void sha256_init()
 {
     g_ssly->sha256_ctx = (t_sha256_ctx *)malloc(sizeof(t_sha256_ctx) * 1);
     if (g_ssly->sha256_ctx == NULL)
-		show_errors("ft_ssl: error can't allocate\n", EXIT_FAILURE);
+		show_errors("ssly: error can't allocate\n", EXIT_FAILURE);
 	g_ssly->sha256_ctx->datalen = 0;
 	g_ssly->sha256_ctx->bitlen[0] = 0;
 	g_ssly->sha256_ctx->bitlen[1] = 0;
