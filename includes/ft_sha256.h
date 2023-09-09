@@ -6,7 +6,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include <unistd.h>
-
+# include <sys/types.h>
 
 # define uchar unsigned char
 # define uint unsigned int
