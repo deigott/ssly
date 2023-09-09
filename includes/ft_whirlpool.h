@@ -1,5 +1,5 @@
-#ifndef FT_SSL_FT_WHIRLPOOL_H
-#define FT_SSL_FT_WHIRLPOOL_H
+#ifndef ssly_FT_WHIRLPOOL_H
+#define ssly_FT_WHIRLPOOL_H
 
 #define whirlpool_block_size 64
 
@@ -29,4 +29,4 @@ void    whirlpool_update(const unsigned char* msg, size_t size);
 void    whirlpool_final();
 void    whirlpool( void );
 
-#endif //FT_SSL_FT_WHIRLPOOL_H
+#endif //ssly_FT_WHIRLPOOL_H
