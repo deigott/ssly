@@ -20,42 +20,19 @@ void    init_struct()
 	return ;
 }
 
-/*
-    if (g_ssly->args->files) {
-        printf("  files:\n");
-        for (int i = 0; g_ssly->args->files[i]; i++) {
-            printf("    %s\n", g_ssly->args->files[i]);
-        }
-    } else {
-        printf("  files: NULL\n");
-    }
-
-    printf("  options: %d\n", g_ssly->args->options);
-
-    // Check the options using the defined constants
-    if (g_ssly->args->options & OPT_HELP) {
-        printf("  OPT_HELP is set\n");
-    }
-    if (g_ssly->args->options & OPT_PRINT) {
-        printf("  OPT_PRINT is set\n");
-    }
-    if (g_ssly->args->options & OPT_REVER) {
-        printf("  OPT_REVER is set\n");
-    }
-    if (g_ssly->args->options & OPT_SUM) {
-        printf("  OPT_SUM is set: %s\n", g_ssly->args->string);
-    }
-    if (g_ssly->args->options & OPT_QUIET) {
-        printf("  OPT_QUIET is set\n");
-    }
-*/
-
 void    handle_commands()
 {
-    if (g_ssly->args->options & OPT_MD5)
-        md5();
-    else if (g_ssly->args->options & OPT_SHA2)
-        sha256();
+    // Array of command names
+    const char* commandNames[] = {"md5","sha256","whirlpool"};
+
+    HashFunction hashFunctions[] = {md5, sha256, whirlpool};
+
+    for (size_t i = 0; i < sizeof(commandNames) / sizeof(commandNames[0]); i++) {
+        if (strcmp(g_ssly->args->command, commandNames[i]) == 0) {
+            hashFunctions[i]();
+            return;
+        }
+    }
     return ;
 }
 
