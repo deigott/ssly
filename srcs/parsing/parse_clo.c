@@ -17,6 +17,7 @@ t_args  *init_args( void )
 	args->options = 0;
 	args->string = NULL;
 	args->files = NULL;
+    args->flag_stdin = 0;
 	return (args);
 }
 
@@ -36,6 +37,19 @@ void	reading_input_files(int index, int length, char *clo_args[])
 	g_ssly->args->files[files_index] = NULL;
 }
 
+int    check_command_validation(char *command)
+{
+    if (ft_strncmp(command, "md5", ft_strlen("md5")) == 0)
+        g_ssly->args->options |= OPT_MD5;
+    else if (ft_strncmp(command, "sha256", ft_strlen(command)) == 0)
+        g_ssly->args->options |= OPT_SHA2;
+    else if (ft_strncmp(command, "whirlpool", ft_strlen(command)) == 0)
+        g_ssly->args->options |= OPT_WHIRL;
+    else
+        return (0);
+    return (1);
+}
+
 void	assign_command(const char *command)
 {
 	char *p;
@@ -51,8 +65,24 @@ void	assign_command(const char *command)
 		g_ssly->args->options |= OPT_SHA2;
 	    g_ssly->args->command = ft_strdup(command);
 	}
-	else if (ft_strncmp(command, "-h", 2) == 0 || ft_strncmp(command, "--help", ft_strlen(command)) == 0 || ft_strncmp(command, "help", ft_strlen(command)) == 0)
-		show_errors("", EX_HELP);
+    else if (ft_strncmp(command, "whirlpool", ft_strlen(command)) == 0)
+    {
+        g_ssly->args->options |= OPT_WHIRL;
+        g_ssly->args->command = ft_strdup(command);
+    }
+	else if (ft_strncmp(command, "-h", 2) == 0 || ft_strncmp(command, "--help", ft_strlen(command)) == 0 || ft_strncmp(command, "help", ft_strlen(command)) == 0) {
+        show_errors("", EX_HELP);
+    }
+    else if (command[0] == '-') {
+        g_ssly->args->command = get_next_line(0);
+        g_ssly->args->flag_stdin = 1;
+        if (!check_command_validation(g_ssly->args->command)) {
+            p = concatenate_strings("Invalid command '%s'; type \"help\" for a list.\n", g_ssly->args->command);
+            show_errors(p, EXIT_FAILURE);
+            free(p);
+            p = NULL;
+        }
+    }
 	else
 	{
 		p = concatenate_strings("Invalid command '%s'; type \"help\" for a list.\n", command);
@@ -77,6 +107,8 @@ void    parse_clo(int len, char *clo_args[])
 	if (g_ssly->args == NULL)
 		show_errors("ft_ssl: can't allocate memory\n", EX_OSERR);
 	assign_command(clo_args[i++]);
+    if (g_ssly->args->flag_stdin)
+        i--;
 	// TO-DO: Parsing only valid options and break if any invalid_option appears
 	while (i < len)
 	{
