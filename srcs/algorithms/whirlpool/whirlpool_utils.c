@@ -11,7 +11,7 @@ void whirlpool_init()
     g_ssly->whirlpool_ctx = (t_whirlpool_ctx *)malloc(sizeof(t_whirlpool_ctx));
 
     if (g_ssly->whirlpool_ctx == NULL)
-        show_errors("ft_ssl: error can't allocate\n", EXIT_FAILURE);
+        show_errors("ssly: error can't allocate\n", EXIT_FAILURE);
     g_ssly->whirlpool_ctx->length = 0;
     g_ssly->whirlpool_ctx->string = NULL;
     ft_memset(g_ssly->whirlpool_ctx->hash, 0, sizeof(g_ssly->whirlpool_ctx->hash));
