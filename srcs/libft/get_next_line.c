@@ -11,9 +11,9 @@ char *get_next_line(int fd)
     char *buffer = malloc(100000); // check before the current BUFFER_SIZE and then malloc
     while ((rd = read(fd, &character, BUFFER_SIZE - BUFFER_SIZE + 1)) > 0)
     {
-        buffer[i++] = character;
         if (character == '\n')
             break;
+        buffer[i++] = character;
     }
     buffer[i] = '\0';
     if (rd == -1 || i == 0 || (!buffer[i - 1] && !rd))
