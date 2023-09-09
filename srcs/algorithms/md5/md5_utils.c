@@ -53,7 +53,7 @@ void  md5_init(void)
 {
     g_ssly->md5_ctx = (t_md5_ctx *)malloc(sizeof(t_md5_ctx) * 1);
     if (g_ssly->md5_ctx == NULL)
-        show_errors("ft_ssl: error can't allocate\n", EXIT_FAILURE);
+        show_errors("ssly: error can't allocate\n", EXIT_FAILURE);
     if (g_ssly)
     g_ssly->md5_ctx->size = (uint64_t)0;
 
